@@ -57,6 +57,11 @@ public class WordGram {
 	    if(this.myWords.length != wg.myWords.length) {
 	    	return false;
 	    }
+	    for(int k = 0; k < myWords.length; k++) {
+	    	if(this.myWords[k] != wg.myWords[k]) {
+	    		return false;
+	    	}
+	    }
 		return true;
 	}
 
