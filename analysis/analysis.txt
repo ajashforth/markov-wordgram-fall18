@@ -1,4 +1,4 @@
-YOUR NAME and YOUR NETID
+Alec Ashforth and aja40
 
 Run WordGramDiver for wordgrams of size 2-10 and record
 the number of WordGram values/objects that occur more than
@@ -15,12 +15,13 @@ values of WSIZE
 WSIZE    # duplicates
 2        60,453
 3        10,756
-4
-5
-7
-8
-9
-10
+4		  1,987
+5			667
+6			362
+7			226
+8			151
+9			105
+10			 73
 
 =====
 Explain in your own words the conceptual differences between 
@@ -29,11 +30,34 @@ Answer these questions:
 
 (1) Why the results of these methods should be the same in 
 terms of changes made to the HashSet parameter.
+-The results from both methods should be the same because HashSets don't include repeat words. The benchmark 
+method may try to add the same word to the HashSet multiple times in the for loop, but HashSets don't give extra
+space for repeated words. So, all of the words from filename are added to the HashSet without repeats.  The 
+benchmarkShift method does not have this same problem, but it stoll adds all of the words from filename to the
+HashSet, yielding the same results in the HashSet as the benchmark method
 
 (2) What are the conceptual differences between the two
 benchmarking methods
+-The benchMark shift method goes through the filename by creating a small String array containing the first WSIZE words
+of filename. Then, this method add these words to the set before replacing the values in the array with the next WSIZE 
+words of the filename using the shiftAdd method.
+-The benchmark method creates an array of all of the words in the filename (after scanning all of these words into an
+ArrayList which will be converted into this array). Then, it creates a WordGram of size WSIZE containing the WSIZE
+elements starting from 0. As the for loop progresses, the starting index increases by 1 each time, which adds the next 
+WSIZE words. Since the increment is only 1, the for loop attempts to add many of the same words into the HashSet, but the 
+HashSet just stuffs them in a locker with their friend (the exact same word). 
 
 (3) Is the total amount of memory allocated for arrays
 the same or different in the two methods? Account for
 arrays created in the methods and arrays created by
 WordGram objects. Try to be quantitative in answering.
+-The total amount of memory allocated for arrays (not ArrayList or HashSet) is different for the two methods.
+-The benchmark method will need memory of size ("# words in filename" + WSIZE * ("# words in filename" - WSIZE + 1))
+while the benchmarkShift method will need memory of size ((2 * WSIZE) + (WSIZE * ("# words in filename" - WSIZE").
+-Benchmark method needs memory for array values when the 'words' array is created which is equal to the size of the # of 
+words in the filename. Benchmark method also creates a new WordGram a total of ("# words in filename" - WSIZE + 1) times 
+due to the for loop.  Each WordGram needs memory for a total of WSIZE of array values.
+-The benchmarkShift method creates an array of size WSIZE at the beginning. Then, it creates a WordGram that needs space 
+for an array of size WSIZE before the while loop. Then, in the while loop, each shiftAdd creates a new WordGram of size 
+WSIZE. This whileloop will repeat a total of ("# words in filename" - WSIZE) since that is the number of words left in
+the filename after the first array was created near the first for loop.
