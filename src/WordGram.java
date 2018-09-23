@@ -62,10 +62,10 @@ public class WordGram {
 
 	@Override
 	public int hashCode(){
-		if(myHash == 0) {
-			myHash = myWords.toString().hashCode();
+		if(this.myHash == 0) {
+			this.myHash = this.myWords.toString().hashCode();
 		}
-		return myHash;
+		return this.myHash;
 	}
 	
 
